@@ -20,6 +20,9 @@ import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 /**
  * Created by MeMyself on 9/28/2016.
  */
+//Implementation of this code was taken from the widget provider implementation of the Sunshine app of the Advanced
+//Android Development course
+//https://github.com/udacity/Advanced_Android_Development/blob/master/app/src/main/java/com/example/android/sunshine/app/widget/DetailWidgetProvider.java
 public class WidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // Perform this loop procedure for each App Widget that belongs to this provider
