@@ -15,6 +15,9 @@ import com.sam_chordas.android.stockhawk.rest.Utils;
 /**
  * Created by MeMyself on 9/28/2016.
  */
+//Implementation of this code was taken from the widget remote service view implementation in the Sunshine weather app
+//of the Advanced Android Development course
+//https://github.com/udacity/Advanced_Android_Development/blob/master/app/src/main/java/com/example/android/sunshine/app/widget/DetailWidgetRemoteViewsService.java
 public class WidgetRemoteViewService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
