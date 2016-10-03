@@ -22,6 +22,8 @@ import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 
 import java.util.ArrayList;
 
+//Implementation of the line graph was adapted from the tutorial in this website:
+//https://www.studytutorial.in/android-line-chart-or-line-graph-using-mpandroid-library-tutorial
 public class LineGraphActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor>{
     private LineChart mChart;
     private float[] prices;
