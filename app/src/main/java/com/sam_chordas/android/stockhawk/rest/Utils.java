@@ -21,7 +21,7 @@ public class Utils {
 
   public static boolean showPercent = true;
 
-  public static ArrayList quoteJsonToContentVals(String JSON){
+  public static ArrayList quoteJsonToContentVals(String JSON, boolean isUpdate, final Context context, Handler handler){
     ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
     JSONObject jsonObject = null;
     JSONArray resultsArray = null;
@@ -43,7 +43,34 @@ public class Utils {
 
           if (resultsArray != null && resultsArray.length() != 0){
             for (int i = 0; i < resultsArray.length(); i++){
+              boolean saved = false;
               jsonObject = resultsArray.getJSONObject(i);
+              if (!isUpdate){
+                final String stockSymbol = jsonObject.getString("symbol");
+                Cursor c = context.getContentResolver().query(QuoteProvider.Quotes.CONTENT_URI,
+                        new String[] { QuoteColumns.SYMBOL }, QuoteColumns.SYMBOL + "= ?",
+                        new String[] { stockSymbol }, null);
+                if (c.getCount() != 0){
+                  //Handler handler = new Handler();
+                  handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                      Toast toast =
+                              Toast.makeText(context,
+                                      context.getString(R.string.particular_stock_saved_message, stockSymbol),
+                                      Toast.LENGTH_LONG);
+                      toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
+                      toast.show();
+                    }
+                  });
+                  saved = true;
+                }
+              }
+              if (saved) continue;
+              ContentProviderOperation providerOperation = buildBatchOperation(jsonObject);
+              if (providerOperation == null){
+                return null;
+              }
               batchOperations.add(buildBatchOperation(jsonObject));
             }
           }
