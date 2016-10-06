@@ -140,32 +140,35 @@ public class StockTaskService extends GcmTaskService{
             mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                 null, null);
           }
-          ArrayList<ContentProviderOperation> batchOperations = Utils.quoteJsonToContentVals(getResponse);
+          ArrayList<ContentProviderOperation> batchOperations = Utils.quoteJsonToContentVals(getResponse, isUpdate, mContext, handler);
           if (batchOperations == null){
             if (!isUpdate) {
-              handler.post(new Runnable() {
-                @Override
-                public void run() {
-                  Toast toast =
-                          Toast.makeText(mContext, "The stock " + mStockInput + " doesn't exist!",
-                                  Toast.LENGTH_LONG);
-                  toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
-                  toast.show();
-                }
-              });
+              if (mStockInput.contains(" ") || mStockInput.contains(",")){
+                handler.post(new Runnable() {
+                  @Override
+                  public void run() {
+                    Toast toast =
+                            Toast.makeText(mContext, R.string.multiple_stocks_not_existing_message,
+                                    Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
+                    toast.show();
+                  }
+                });
+              }else {
+                handler.post(new Runnable() {
+                  @Override
+                  public void run() {
+                    Toast toast =
+                            Toast.makeText(mContext, mContext.getString(R.string.non_extistent_stock_message, mStockInput),
+                                    Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
+                    toast.show();
+                  }
+                });
+              }
             }
-            else{
-              handler.post(new Runnable() {
-                @Override
-                public void run() {
-                  Toast toast =
-                          Toast.makeText(mContext, "The latest stocks seem to not exist!",
-                                  Toast.LENGTH_LONG);
-                  toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
-                  toast.show();
-                }
-              });
-            }
+            return GcmNetworkManager.RESULT_FAILURE;
+          }else if (batchOperations.isEmpty()){
             return GcmNetworkManager.RESULT_FAILURE;
           }
           mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
