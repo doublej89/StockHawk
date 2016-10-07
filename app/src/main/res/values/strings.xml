@@ -23,6 +23,10 @@
 
     <!-- The toast message that appears if the user has put in a stock symbol that is already in the database -->
     <string name="stock_saved_message">This stock is already saved!</string>
+    <string name="particular_stock_saved_message"><xliff:g id="symbol">%1$s</xliff:g> is already saved!</string>
+    <!--Toast message appears when user tries to add multiple stocks but one more of them doesn't exist-->
+    <string name="multiple_stocks_not_existing_message">One or more of the stocks you're trying to add doesn't exist!</string>
+    <string name="non_extistent_stock_message">The stock <xliff:g id="symbol">%1$s</xliff:g> doesn't exist!</string>
     <string name="input_prefill"></string>
 
     <!-- This is what shows up in the empty view when network is not available -->
@@ -45,7 +49,7 @@
     <string name="title_widget">StockHawk Widget</string>
 
     <!-- Key name for storing the latest status of the task run by stock task service in the shred preference -->
-    <string name="pref_status_key">status key</string>
+    <string name="pref_status_key" translatable="false">status key</string>
 
     <!-- The following three are used to display messages in the main activity empty view in case the latest
          data fetching task hasn't been successful -->
