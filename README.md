@@ -15,7 +15,7 @@ main app. The list items also display the same on click behavior as in th main a
 
 # Installation
 
-This app use the Gradle build system.
+This app uses the Gradle build system.
 
 First download the code by cloning this repository or downloading an archived snapshot. (See the options at the top of the page.)
 
