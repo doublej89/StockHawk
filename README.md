@@ -1,6 +1,6 @@
 # StockHawk
 
-StockHawk is a simple stock tracking app. Upon launch it displays a list of a limited number of 
+StockHawk is a stock tracking app. Upon launch it displays a list of a limited number of 
 stock quotes. The quotes are updated every hour.
 
 If any of the list items are tapped, a line chart appears showing the hour by hour evolution of 
